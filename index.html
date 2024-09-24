@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pemantauan Suhu, Kelembaban, dan Tekanan Udara</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="icon" href="/assets/icon-C3OZEDm1.png" />
+
+    <!-- Highcharts scripts -->
+    <script src="https://code.highcharts.com/stock/highstock.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script type="module" crossorigin src="/assets/index-cckHtBG5.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D7DjL4EL.css">
+  </head>
+
+  <body class="bg-light">
+    <h1 class="display-4 text-center mb-5">Pemantauan Suhu, Kelembaban, dan Tekanan Udara</h1>
+    <div class="container-xxl py-5">
+      <!-- Button Location Selection -->
+      <div class="d-flex justify-content-center mb-4">
+        <div class="btn-group" role="group" aria-label="Pemilih Lokasi">
+          <button type="button" class="btn btn-primary" onclick="showLocation(1)">Tempat 1 (BME280)</button>
+          <button type="button" class="btn btn-light" onclick="showLocation(2)">Tempat 2 (DHT22)</button>
+        </div>
+      </div>
+
+      <!-- Location 1: BME280 -->
+      <div id="location1" class="location">
+        <h2 class="h3 mb-4">Tempat 1 (BME280)</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+          <!-- Temperature -->
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title h5">Suhu (°C)</h3>
+                <div id="chartTemperature1" class="chart-container"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Humidity -->
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title h5">Kelembaban (%)</h3>
+                <div id="chartHumidity1" class="chart-container"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Air Pressure -->
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title h5">Tekanan Udara (hPa)</h3>
+                <div id="chartPressure1" class="chart-container"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Chart 1 -->
+        <div class="row g-4 mb-5">
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title h5">Data Tempat 1 (BME280)</h3>
+                <div class="d-flex justify-content-center mt-5 mb-5">
+                  <div class="btn-group" role="group">
+                    <input type="checkbox" class="btn-check" id="showTemperature1" checked autocomplete="off" />
+                    <label class="btn btn-outline-primary custom-label" for="showTemperature1">Suhu (°C)</label>
+                    <input type="checkbox" class="btn-check" id="showHumidity1" checked autocomplete="off" />
+                    <label class="btn btn-outline-primary custom-label" for="showHumidity1">Kelembaban (%)</label>
+                    <input type="checkbox" class="btn-check" id="showPressure1" checked autocomplete="off" />
+                    <label class="btn btn-outline-primary custom-label" for="showPressure1">Tekanan (hPa)</label>
+                  </div>
+                </div>
+                <div id="container"></div>
+                <div id="current-time" class="text-center mb-4"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Location 2: DHT22 -->
+      <div id="location2" class="location d-none">
+        <h2 class="h3 mb-4">Tempat 2 (DHT22)</h2>
+        <div class="row row-cols-1 row-cols-md-2 g-4 mb-5">
+          <!-- Temperature -->
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title h5">Suhu (°C)</h3>
+                <div id="chartTemperature2" class="chart-container"></div>
+              </div>
+            </div>
+          </div>
+          <!-- Humidity -->
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title h5">Kelembaban (%)</h3>
+                <div id="chartHumidity2" class="chart-container"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Chart 2 -->
+        <div class="row g-4 mb-5">
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h3 class="card-title h5">Data Tempat 2 (DHT22)</h3>
+                <div class="d-flex justify-content-center mt-5 mb-5">
+                  <div class="btn-group" role="group">
+                    <input type="checkbox" class="btn-check" id="showTemperature2" checked autocomplete="off" />
+                    <label class="btn btn-outline-primary custom-label" for="showTemperature2">Suhu (°C)</label>
+                    <input type="checkbox" class="btn-check" id="showHumidity2" checked autocomplete="off" />
+                    <label class="btn btn-outline-primary custom-label" for="showHumidity2">Kelembaban (%)</label>
+                  </div>
+                </div>
+                <div id="container1"></div>
+                <div id="current-time-2" class="text-center mb-4"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom Scripts -->
+    <script src="/js/script.js"></script>
+  </body>
+</html>
