@@ -7,7 +7,110 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+      /* Variabel CSS untuk mempermudah perubahan warna */
+      :root {
+        --primary-color: #007bff;
+        --white-color: #ffffff;
+        --hover-bg-color: #f1f7ff;
+        --border-color: #ebebeb;
+        --table-bg: #f8f8f8;
+        --text-color: #555;
+      }
 
+      /* Style untuk form dan checkbox */
+      .form-check {
+        margin: 10px 0;
+      }
+
+      /* Style untuk tombol check yang aktif */
+      .btn-check:checked + .custom-label {
+        background-color: var(--primary-color);
+        color: var(--white-color);
+      }
+
+      /* Style untuk label custom */
+      .custom-label {
+        background-color: var(--white-color);
+        color: var(--primary-color);
+        transition: background-color 0.2s, color 0.2s;
+      }
+
+      /* Style untuk container chart */
+      .chart-container {
+        width: 100%;
+        height: 500px;
+        margin: 0 auto;
+      }
+
+      /* Tabel data Highcharts */
+      .highcharts-data-table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid var(--border-color);
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+      }
+
+      /* Caption pada tabel data */
+      .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: var(--text-color);
+      }
+
+      /* Style untuk header dan cell pada tabel */
+      .highcharts-data-table th,
+      .highcharts-data-table td {
+        padding: 0.5em;
+      }
+
+      /* Background untuk header dan baris genap */
+      .highcharts-data-table thead tr,
+      .highcharts-data-table tr:nth-child(even) {
+        background: var(--table-bg);
+      }
+
+      /* Hover effect pada baris tabel */
+      .highcharts-data-table tr:hover {
+        background: var(--hover-bg-color);
+      }
+
+      /* Style untuk container chart utama */
+      #container {
+        height: 400px;
+        min-width: 310px;
+      }
+
+      /* Responsivitas untuk layar ukuran besar (max-width 1200px) */
+      @media (max-width: 1200px) {
+        .row-cols-md-3 .col,
+        .row-cols-md-2 .col {
+          width: 100%;
+        }
+      }
+
+      /* Responsivitas untuk layar kecil (max-width 576px) */
+      @media (max-width: 576px) {
+        /* Tombol akan memenuhi lebar penuh layar di perangkat kecil */
+        .btn-group {
+          display: flex;
+          flex-wrap: wrap;
+        }
+
+        .btn-group button {
+          flex: 1 1 100%;
+          margin-bottom: 5px;
+        }
+
+        /* Ukuran chart dikurangi agar pas di layar kecil */
+        .chart-container {
+          height: 300px;
+        }
+      }
+    </style>
     <link rel="icon" href="assets/icon-C3OZEDm1.png" />
 
     <!-- Highcharts scripts -->
@@ -17,8 +120,7 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script type="module" crossorigin src="assets/index-CSdT7F1n.js"></script>
-    <link rel="stylesheet" crossorigin href="assets/index-BJB2Zs8F.css" />
+    <script type="module" crossorigin src="assets/index-Dm9aWwCY.js"></script>
   </head>
 
   <body class="bg-light">
@@ -135,12 +237,23 @@
         </div>
       </div>
     </div>
-
-    <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom Scripts -->
-
-    <script src="script.js"></script>
+    <script>
+      function showLocation(locationNumber) {
+        const locations = document.querySelectorAll(".location");
+        const buttons = document.querySelectorAll(".btn-group .btn");
+        locations.forEach((location, index) => {
+          if (index + 1 === locationNumber) {
+            location.classList.remove("d-none");
+            buttons[index].classList.remove("btn-light");
+            buttons[index].classList.add("btn-primary");
+          } else {
+            location.classList.add("d-none");
+            buttons[index].classList.remove("btn-primary");
+            buttons[index].classList.add("btn-light");
+          }
+        });
+      }
+    </script>
   </body>
 </html>
